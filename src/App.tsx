@@ -22,6 +22,7 @@ import LoginPage from "./views/Login";
 import ArticleList from "./views/ArticleList";
 import { searchContext } from "./context/searchContext";
 import AnalysisPage from "./views/Analysis";
+import ArticlePage from "./views/Article";
 
 type ContextTuple<T extends Context<any>[]> = {
     [K in keyof T]: {
@@ -151,6 +152,7 @@ export default function App(): ReactNode {
                             <Route path="/" element={<ArticleList />} />
                             <Route path="/post" element={<CreateArticlePage />} />
                             <Route path="/chat/:conversationId?" element={<ChatPage />} />
+                            <Route path="/article/:articleId" element={<ArticlePage />} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </>
                     }

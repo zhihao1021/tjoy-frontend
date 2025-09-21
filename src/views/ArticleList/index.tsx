@@ -8,9 +8,10 @@ import { getAllCategories } from "@/api/category";
 
 import { errorQueueContext } from "@/context/errorQueue";
 import { loadingContext } from "@/context/loading";
+import { searchContext } from "@/context/searchContext";
 
 import styles from "./index.module.scss";
-import { searchContext } from "@/context/searchContext";
+import { Link } from "react-router-dom";
 
 const eventDayMap = ["一", "二", "三", "四", "五", "六", "日"];
 
@@ -96,9 +97,10 @@ export default function ArticleList(): ReactNode {
                 >活動</button>
             </div>
             {
-                displayArticles.map(a => <div
+                displayArticles.map(a => <Link
                     key={a.id}
                     className={styles.article}
+                    to={`/article/${a.id}`}
                 >
                     <div
                         className={styles.articleCategorues}
@@ -135,7 +137,7 @@ export default function ArticleList(): ReactNode {
                             }
                         </div>
                     }
-                </div>)
+                </Link>)
             }
         </div>
     </div>

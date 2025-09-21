@@ -1,0 +1,215 @@
+.article {
+    width: 52rem;
+    max-width: $content;
+    margin: auto;
+
+    .title {
+        margin-bottom: 1.5rem;
+
+        .category {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            img {
+                display: block;
+                height: 3rem;
+                width: 3rem;
+                border-radius: 1.5rem;
+                object-fit: cover;
+                background-color: #DDDDDD;
+                overflow: hidden;
+            }
+
+            .categoryInfo {
+                .categoryName {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                }
+
+                .authorName {
+                    color: #666;
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        h1 {
+            margin: 0.5rem 0;
+            margin-left: 4rem;
+            width: calc(100% - 4rem);
+        }
+    }
+
+    .context {
+        width: calc(100% - 4rem);
+        margin-left: 4rem;
+        min-height: 35svh;
+    }
+
+    >hr {
+        height: 1px;
+        width: 100%;
+        border: none;
+        margin: 1.5rem 0;
+        background-color: #DDDDDD;
+    }
+
+    .comments {
+        width: 100%;
+
+        .commentInput {
+            width: 100%;
+            margin: 1rem 0;
+            box-sizing: border-box;
+
+            textarea {
+                width: 100%;
+                height: 6.5rem;
+                font-size: inherit;
+                box-sizing: border-box;
+                border: none;
+                resize: none;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                outline: none;
+                font-family: inherit;
+            }
+
+            .buttonBar {
+                display: flex;
+                align-items: center;
+                margin-top: 0.25rem;
+
+                .authorVisibility {
+                    position: relative;
+                    font-size: 0.9em;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    height: 2rem;
+                    background-color: #DDD8;
+                    padding: 0.25rem 0.15rem;
+                    border-radius: 0.25rem;
+                    isolation: isolate;
+                    overflow: hidden;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0.25rem;
+                        height: calc(100% - 0.5rem);
+                        background-color: #00C4B0EB;
+                        z-index: -1;
+                        border-radius: 0.18rem;
+                        transition: left 0.3s, width 0.3s;
+                    }
+
+
+                    &[data-selected="0"]::before {
+                        left: 0.15rem;
+                        width: 3rem;
+                    }
+
+                    &[data-selected="1"]::before {
+                        left: 3.4rem;
+                        width: 7.5rem;
+                    }
+
+                    &[data-selected="2"]::before {
+                        left: 11.15rem;
+                        width: 5rem;
+                    }
+
+                    &[data-selected="3"]::before {
+                        left: 16.4rem;
+                        width: 5rem;
+                    }
+
+                    button {
+                        box-sizing: border-box;
+                    }
+
+                    button:nth-child(1) {
+                        width: 3rem;
+                    }
+
+                    button:nth-child(2) {
+                        width: 7.5rem;
+                    }
+
+                    button:nth-child(3),
+                    button:nth-child(4) {
+                        width: 5rem;
+                    }
+                }
+
+                >button {
+                    margin-left: auto;
+                    padding: 0.25rem 1rem;
+                    border-radius: 0.5rem;
+                    background-color: #00C4B0EB;
+                    box-shadow: 0.1rem 0.1rem 0.2rem -0.1rem #000;
+
+                    &:disabled {
+                        background-color: #AAA;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+
+        .commentTitle {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .comment {
+            padding: 1rem;
+            box-sizing: border-box;
+            border-radius: 0.5rem;
+            background-color: #EEEEEE;
+            margin: 0.5rem 0;
+
+            .author {
+                display: flex;
+                gap: 0.75rem;
+                align-items: center;
+
+                img {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    object-fit: cover;
+                    border-radius: 1.25rem;
+                    background-color: #FFF;
+                }
+
+                div {
+                    font-size: 1.05rem;
+                    width: calc(100% - 3.25rem);
+                    overflow: hidden;
+                    text-wrap: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .commentContent {
+                width: calc(100% - 3.25rem);
+                margin-left: 3.25rem;
+                margin-top: 0.25rem;
+                min-height: 4rem;
+            }
+        }
+
+        .bottom {
+            height: 16rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #AAA;
+        }
+    }
+}

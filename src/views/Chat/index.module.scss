@@ -10,7 +10,10 @@
 
         .tab {
             @include tab;
+            gap: 1.5rem;
+            font-size: 1.25rem;
             width: 100%;
+            border-bottom: 1px solid #00000029;
 
             button {
                 &:first-child {
