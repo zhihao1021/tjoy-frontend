@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import defaultAvatar from "@/assets/default_avatar.svg";
@@ -6,10 +6,20 @@ import logo from "@/assets/logo.svg";
 
 import styles from "./index.module.scss";
 
-export default function TopBar(): ReactNode {
+type propsType = Readonly<{
+    setGlobalSearch: (text: string) => void;
+}>;
+
+export default function TopBar(props: propsType): ReactNode {
+    const { setGlobalSearch } = props;
+
     const [search, setSearch] = useState<string>("");
 
     const { pathname } = useLocation();
+
+    useEffect(() => {
+        setGlobalSearch(search);
+    }, [search]);
 
     return <div className={styles.topBar}>
         <div className={styles.content}>
@@ -50,7 +60,10 @@ export default function TopBar(): ReactNode {
                     className="ms"
                     data-current={pathname.startsWith("/notifications")}
                 >notifications</Link>
-                <div className={styles.userInfo}>
+                <div className={styles.userInfo} onClick={() => {
+                    localStorage.removeItem("access_token");
+                    window.location.reload();
+                }}>
                     <span className={styles.name}>ABC</span>
                     <img alt="avatar" src={defaultAvatar} />
                 </div>

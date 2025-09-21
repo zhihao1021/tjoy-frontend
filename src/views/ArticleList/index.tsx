@@ -10,7 +10,9 @@ import { errorQueueContext } from "@/context/errorQueue";
 import { loadingContext } from "@/context/loading";
 
 import styles from "./index.module.scss";
+import { searchContext } from "@/context/searchContext";
 
+const eventDayMap = ["一", "二", "三", "四", "五", "六", "日"];
 
 export default function ArticleList(): ReactNode {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -18,8 +20,10 @@ export default function ArticleList(): ReactNode {
     const [tab, setTab] = useState<number>(0);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-    const { useLoading } = useContext(loadingContext);
     const { addError } = useContext(errorQueueContext)
+    const { useLoading } = useContext(loadingContext);
+    const { searchText } = useContext(searchContext);
+
 
 
     const displayArticles = (() => {
@@ -33,6 +37,18 @@ export default function ArticleList(): ReactNode {
 
         if (selectedCategory) {
             result = result.filter(a => a.category_id === selectedCategory);
+        }
+
+        if (searchText.trim()) {
+            result = result.filter(a => {
+                if (a.id === searchText) return true;
+                if (a.title.includes(searchText)) return true;
+                if (a.content.includes(searchText)) return true;
+                if (a.author_id && a.author_id === searchText) return true;
+                if (a.author_name.includes(searchText)) return true;
+                if (a.category_name?.includes(searchText)) return true;
+                return false;
+            });
         }
 
         return result;
@@ -99,6 +115,24 @@ export default function ArticleList(): ReactNode {
                         <div className={styles.title}>{a.title}</div>
                         <div className={styles.brief}>{a.content.slice(0, 30)}</div>
                     </div>
+                    {
+                        a.is_event && <div className={styles.eventInfo}>
+                            {
+                                a.event_week_day !== null ? <div className={styles.eventDay}>
+                                    <div className={styles.value}>每周{
+                                        eventDayMap[a.event_week_day]
+                                    }</div>
+                                </div> : undefined
+                            }
+                            {
+                                a.event_number_min !== null && a.event_number_max !== null ? <div className={styles.eventNumber}>
+                                    <div className={styles.value}>{
+                                        `${a.event_number_min} ~ ${a.event_number_max} 人`
+                                    }</div>
+                                </div> : undefined
+                            }
+                        </div>
+                    }
                 </div>)
             }
         </div>

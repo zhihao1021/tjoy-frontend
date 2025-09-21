@@ -20,6 +20,8 @@ import ErrorPage from "./views/Error";
 import LoadingPage from "./views/Loading";
 import LoginPage from "./views/Login";
 import ArticleList from "./views/ArticleList";
+import { searchContext } from "./context/searchContext";
+import AnalysisPage from "./views/Analysis";
 
 type ContextTuple<T extends Context<any>[]> = {
     [K in keyof T]: {
@@ -41,6 +43,7 @@ function ContextWrapper<T extends any[]>(props: Readonly<{
 
 export default function App(): ReactNode {
     const [userData, setUserData] = useState<User | null | undefined>(undefined);
+    const [globalSearch, setGlobalSearch] = useState<string>("");
 
     const [errorQueue, setErrorQueue] = useState<{
         error: Error | string;
@@ -121,24 +124,32 @@ export default function App(): ReactNode {
     return <ContextWrapper contexts={[
         { context: loadingContext, value: { setLoading, useLoading } },
         { context: errorQueueContext, value: { addError } },
-        { context: userDataContext, value: { userData, refreshUserData } }
+        { context: userDataContext, value: { userData, refreshUserData } },
+        { context: searchContext, value: { searchText: globalSearch } }
     ]}>
         <ErrorPage errorQueue={errorQueue} close={stamp => setErrorQueue(
             prev => prev.filter(item => item.stamp !== stamp)
         )} />
         <LoadingPage show={loadingCount > 0} />
         {
-            !pathname.startsWith("/login") && <TopBar />
+            !pathname.startsWith("/login") && <TopBar setGlobalSearch={setGlobalSearch} />
         }
         <Routes>
             {!userData && <Route path="/login" element={<LoginPage />} />}
             {userData === null && <Route path="*" element={<Navigate to="/login" />} />}
             {
                 userData && <>
-                    <Route path="/" element={<ArticleList />} />
-                    <Route path="/post" element={<CreateArticlePage />} />
-                    <Route path="/chat/:conversationId?" element={<ChatPage />} />
-                    <Route path="*" element={<Navigate to="/" />} />
+                    {
+                        userData.username === "admin" ? <>
+                            <Route path="/analysis" element={<AnalysisPage />} />
+                            <Route path="*" element={<Navigate to="/analysis" />} />
+                        </> : <>
+                            <Route path="/" element={<ArticleList />} />
+                            <Route path="/post" element={<CreateArticlePage />} />
+                            <Route path="/chat/:conversationId?" element={<ChatPage />} />
+                            <Route path="*" element={<Navigate to="/" />} />
+                        </>
+                    }
                 </>
             }
         </Routes>

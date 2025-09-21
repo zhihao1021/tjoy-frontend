@@ -169,6 +169,22 @@
                     text-overflow: ellipsis;
                 }
             }
+
+            .eventInfo {
+                width: calc(100% - 3rem);
+                margin-top: 0.5rem;
+                margin-left: auto;
+                display: flex;
+                font-size: 0.9rem;
+                gap: 0.5rem;
+                color: #333333;
+
+                >div {
+                    padding: 0.25rem 0.75rem;
+                    border-radius: 100vmax;
+                    background-color: #CCCCCC88;
+                }
+            }
         }
     }
 }
