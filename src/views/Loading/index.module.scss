@@ -1,0 +1,58 @@
+.loadingPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 100vw;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $opacity-background;
+    transition: opacity 0.3s;
+
+    &[data-show=false] {
+        opacity: 0;
+        pointer-events: none;
+
+        .loadingBox {
+            transform: translateY(-10vh);
+        }
+    }
+
+    .loadingBox {
+        position: relative;
+        width: min(50vw, 10rem);
+        height: min(50vw, 10rem);
+        transition: transform 0.3s;
+
+        .loadingDot {
+            position: absolute;
+            height: 8%;
+            width: 8%;
+            border-radius: 50%;
+            background-color: #FFF;
+            top: calc(50% - 46% * cos(var(--index) * 30deg));
+            left: calc(50% + 46% * sin(var(--index) * 30deg));
+            animation: loading 1.2s ease calc(0.1s * var(--index)) infinite;
+
+            @keyframes loading {
+                0% {
+                    transform: scale(1);
+                }
+
+                40% {
+                    transform: scale(1.5);
+                }
+
+                70% {
+                    transform: scale(1);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+}

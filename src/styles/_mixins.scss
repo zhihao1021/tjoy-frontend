@@ -1,0 +1,131 @@
+@use "./colors" as colors;
+
+@mixin width-enough($width) {
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin width-not-enough($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin phone() {
+    @include width-not-enough(42rem) {
+        @content;
+    }
+}
+
+@mixin not-phone() {
+    @include width-enough(42rem) {
+        @content;
+    }
+}
+
+@mixin box-shadow($unit: 0.1rem) {
+    box-shadow: $unit $unit (
+        2 * $unit) (-1 * $unit) #000;
+}
+
+@mixin float-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: colors.$opacity-background;
+    transition: opacity 0.3s;
+    z-index: 10;
+
+    &[data-show=false] {
+        opacity: 0;
+        pointer-events: none;
+
+        @content;
+    }
+}
+
+@mixin float-box {
+    background-color: #FFF;
+    box-sizing: border-box;
+    width: min(95%, 36rem
+    );
+max-width: min(95%, 36rem);
+padding: min(5vw, 1.5rem);
+border-radius: min(3vw, 1rem);
+box-shadow: 0 0 0.5rem 0.25rem #0003;
+transition: transform 0.3s;
+}
+
+@mixin button {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    padding: 0.25em 0.75em;
+    border-radius: 0.25em;
+    box-shadow: 0.1em 0.1em 0.2em -0.1em #0008;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-0.1rem);
+    }
+
+    &:disabled {
+        background-color: colors.$disabled;
+    }
+}
+
+@mixin before {
+    &::before {
+        content: "";
+        position: absolute;
+        @content;
+    }
+}
+
+@mixin after {
+    &::after {
+        content: "";
+        position: absolute;
+        @content;
+    }
+}
+
+@mixin before-after {
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        @content;
+    }
+}
+
+@mixin tab {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #00000029;
+
+    button {
+        height: 2.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background-color: #00C4B0EB;
+        transition: left 0.3s, width 0.3s;
+    }
+}

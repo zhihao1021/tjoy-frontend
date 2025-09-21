@@ -1,0 +1,109 @@
+.topBar {
+    background-image: linear-gradient(-90deg, #C2D8F3, #00C4B0EB 36%, #2EFFA15C 92%);
+    box-sizing: border-box;
+    width: calc(100vw - 1.5rem);
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.75rem;
+    border-radius: 0.75rem;
+
+    .content {
+        margin: auto;
+        width: $content;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .logo {
+            height: 75%;
+            display: block;
+
+            img {
+                display: block;
+                height: 100%;
+            }
+        }
+
+        .searchBar,
+        .userInfo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            height: 2.5rem;
+            border-radius: 1.25rem;
+            box-sizing: border-box;
+        }
+
+        .searchBar {
+            width: 20rem;
+            padding: 0 0.75rem;
+            margin-right: auto;
+            background-color: transparent;
+            backdrop-filter: brightness(1.1);
+
+            .icon {
+                font-size: 1.25rem;
+            }
+
+            label {
+                flex: 1;
+                height: 100%;
+                display: flex;
+                align-items: center;
+
+                input {
+                    padding: 0;
+                    width: 100%;
+                    font-size: 1.25rem;
+
+                    &::selection {
+                        color: #FFF;
+                        background-color: #000;
+                    }
+                }
+            }
+        }
+
+        .functions {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+
+            a {
+                color: #FFF;
+                font-size: 1.5rem;
+                transition: color 0.3s;
+                height: 1.5rem;
+                line-height: 1.5rem;
+
+                &[data-current=true] {
+                    color: #000;
+                }
+            }
+
+
+            .userInfo {
+                padding-left: 1rem;
+                background-color: #FFF;
+
+                .name {
+                    max-width: 5em;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                img {
+                    display: block;
+                    height: 95%;
+                    aspect-ratio: 1 / 1;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

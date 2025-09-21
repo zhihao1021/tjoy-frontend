@@ -1,0 +1,174 @@
+.articles {
+    display: flex;
+    gap: 1rem;
+    width: $content;
+    margin: 0 auto;
+    height: calc(100svh - 6.5rem);
+
+    .categories {
+        height: calc(100% - 0.75rem);
+        width: calc(25% - 0.5rem);
+        overflow-y: auto;
+
+        .category {
+            position: relative;
+            display: block;
+            width: 100%;
+            font-size: 1.25rem;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+            text-align: left;
+            cursor: pointer;
+            overflow: hidden;
+            isolation: isolate;
+
+            &:hover {
+                background-color: #DDDDDD8A;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background: linear-gradient(15deg, #18f389eb 5%, #FFEA2E88 80%);
+                opacity: 0;
+                transition: opacity 0.3s;
+                z-index: -1;
+            }
+
+            &[data-on-selected=true]::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    .list {
+        position: relative;
+        width: calc(75% - 0.5rem);
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 4rem;
+        box-sizing: border-box;
+
+        .tab {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4rem;
+            line-height: 4rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 0.1rem solid #0002;
+            box-sizing: border-box;
+            border-radius: 2rem;
+            isolation: isolate;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0.25rem;
+                height: calc(100% - 0.5rem);
+                width: 30%;
+                background-color: #00C4B0EB;
+                border-radius: 100vmax;
+                transition: left 0.3s;
+            }
+
+            &[data-tab="0"]::before {
+                left: 0.25rem;
+            }
+
+            &[data-tab="1"]::before {
+                left: 35%;
+            }
+
+            &[data-tab="2"]::before {
+                left: calc(70% - 0.25rem);
+            }
+
+            button {
+                width: 30%;
+                font-size: 1.25rem;
+                z-index: 10;
+            }
+        }
+
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .article {
+            width: 100%;
+            background-color: #DDDDDD8A;
+            box-sizing: border-box;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+
+            .articleCategorues {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+
+                img {
+                    display: block;
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    object-fit: cover;
+                    background-color: #DDDDDD;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .authorInfo {
+                    overflow: hidden;
+                    width: calc(100% - 3rem);
+
+                    >* {
+                        text-overflow: ellipsis;
+                        text-wrap: nowrap;
+                        overflow-x: hidden;
+                    }
+
+                    .categoryName {
+                        font-weight: bold;
+                    }
+
+                    .authorName {
+                        color: #666;
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+
+            .content {
+                width: calc(100% - 3rem);
+                margin-left: auto;
+
+                .title {
+                    font-size: 1.25rem;
+                    font-weight: 900;
+                }
+
+                .brief {
+                    line-height: 1.5rem;
+                    width: 100%;
+                    max-height: 4.5rem;
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

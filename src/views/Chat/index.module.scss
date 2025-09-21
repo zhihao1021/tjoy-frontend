@@ -1,0 +1,242 @@
+.chat {
+    height: calc(100svh - 7.25rem);
+    display: flex;
+    width: $content;
+    margin: 0.75rem auto;
+    gap: 1rem;
+
+    .conversations {
+        width: calc(40% - 0.5rem);
+
+        .tab {
+            @include tab;
+            width: 100%;
+
+            button {
+                &:first-child {
+                    width: 6em;
+                }
+
+                &:last-child {
+                    width: 6em;
+                }
+            }
+
+            &[data-tab="event"]::after {
+                left: 0;
+                width: 7.5rem;
+            }
+
+            &[data-tab="private"]::after {
+                left: 9rem;
+                width: 7.5rem;
+            }
+        }
+
+        .conversationList {
+            height: calc(100% - 3.7rem);
+            margin-top: 1rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            >a {
+                position: relative;
+                display: flex;
+                width: 100%;
+                height: 4.75rem;
+                background-color: #CCCCCC33;
+                margin: 0.5rem 0;
+                padding: 0 0.5rem;
+                align-items: center;
+                box-sizing: border-box;
+                border-radius: 0.5rem;
+                gap: 0.5rem;
+                isolation: isolate;
+                overflow: hidden;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-image: linear-gradient(35deg, #18F3DDEB 5%, #FFEA2E88 80%);
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                }
+
+                &:hover::before {
+                    opacity: 1;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                img,
+                .info {
+                    z-index: 10;
+                }
+
+                img {
+                    height: 3.5rem;
+                    width: 3.5rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .info {
+                    width: calc(100% - 4rem);
+                    overflow: hidden;
+
+                    >div {
+                        text-overflow: ellipsis;
+                        text-wrap: nowrap;
+                        overflow: hidden;
+                    }
+
+                    .name {
+                        font-weight: bold;
+                    }
+
+                    .latestMessage {
+                        font-size: 0.9rem;
+                        margin-top: 0.15rem;
+                    }
+                }
+            }
+        }
+
+        .noConversation {
+            text-align: center;
+            padding-top: 5rem;
+            color: #888;
+            font-size: 1.5rem;
+        }
+    }
+
+    .messages {
+        width: calc(60% - 0.5rem);
+        height: 100%;
+
+        .current {
+            height: 100%;
+            border: 0.1rem solid #0002;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+
+            .header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                box-sizing: border-box;
+                padding: 0 0.5rem;
+                height: 4rem;
+                background-image: linear-gradient(35deg,
+                        #18F3DD30 5%,
+                        #FFEA2E50 80%);
+                border-bottom: 1px solid #0002;
+
+                img {
+                    display: block;
+                    height: 3rem;
+                    width: 3rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .title {
+                    font-size: 1.15rem;
+                    font-weight: bold;
+                }
+            }
+
+            .messageList {
+                height: calc(100% - 7rem);
+                overflow-y: auto;
+
+                .message,
+                .translate {
+                    width: fit-content;
+                    max-width: 60%;
+                    margin: 0.5rem;
+                    padding: 0.25rem 0.75rem;
+                    border-radius: 0.25rem;
+                    background-color: #CCCCCC88;
+
+                    &[data-self=true] {
+                        margin-left: auto;
+                        background-color: #77ded488;
+                    }
+                }
+
+                .translate {
+                    color: #666;
+                    background-color: transparent;
+                    border-left: 0.2rem solid #8888;
+                    border-radius: 0;
+                }
+
+                .message[data-self=true]:has(+.translate) {
+                    margin-bottom: 0;
+                }
+
+                .message[data-self=true]+.translate {
+                    margin-left: auto;
+                    margin-top: 0;
+                }
+            }
+
+            .inputArea {
+                height: 3rem;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+                border-top: 1px solid #0002;
+
+                label {
+                    flex: 1;
+                    height: 100%;
+                    padding: 0.75rem;
+                    box-sizing: border-box;
+
+                    input {
+                        width: 100%;
+                        height: 1.5rem;
+                        line-height: 1.5rem;
+                        border-bottom: 1px solid #0002;
+                        transition: border-color 0.3s;
+
+                        &:focus {
+                            border-color: #000;
+                        }
+                    }
+                }
+
+                .send {
+                    font-size: 1.25rem;
+                    color: #888;
+                    transition: color 0.3s;
+                    margin-bottom: 0.1rem;
+
+                    &:hover {
+                        color: #000;
+                    }
+                }
+            }
+        }
+
+        .noSelection {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.5rem;
+        }
+    }
+}

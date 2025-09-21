@@ -1,0 +1,17 @@
+export type Article = Readonly<{
+    id: string,
+    author_id: string | null,
+    author_name: string,
+    category_id: string | null,
+    category_name: string | null,
+    title: string,
+    content: string,
+    tags: string,
+    is_event: boolean,
+    event_week_day: number | null,
+    event_number_min: number | null,
+    event_number_max: number | null,
+    event_conversation_id: number | null,
+    interest_count: number,
+    join_count: number,
+}>

@@ -1,0 +1,28 @@
+.create {
+    width: 48rem;
+    margin: auto;
+
+    .tab {
+        @include tab;
+
+        button {
+            &:first-child {
+                width: 4em;
+            }
+
+            &:last-child {
+                width: 6em;
+            }
+        }
+
+        &[data-selected="0"]::after {
+            left: 0;
+            width: 5rem;
+        }
+
+        &[data-selected="1"]::after {
+            left: 6.5rem;
+            width: 7.5rem;
+        }
+    }
+}
