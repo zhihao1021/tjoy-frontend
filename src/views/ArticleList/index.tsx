@@ -43,7 +43,12 @@ export default function ArticleList(): ReactNode {
             setCategories
         ).catch(addError));
         useLoading(getArticleList().then(articles => {
-            setArticles(articles.sort(() => Math.random() - 0.5));
+            setArticles(articles.sort((a, b) => {
+                const idA = BigInt(a.id);
+                const idB = BigInt(b.id);
+
+                return idB > idA ? 1 : (idB < idA ? -1 : 0);
+            }));
         }).catch(addError));
     }, [useLoading, addError]);
 

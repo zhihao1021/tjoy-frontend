@@ -15,3 +15,16 @@ export type Article = Readonly<{
     interest_count: number,
     join_count: number,
 }>
+
+export type ArticleCreate = {
+    author_visibility: number,
+    category_id: string,
+    title: string,
+    content: string,
+    tags: string,
+    is_public: boolean,
+    is_event: boolean,
+    event_week_day?: number,
+    event_number_min?: number,
+    event_number_max?: number,
+}
