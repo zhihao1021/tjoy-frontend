@@ -53,7 +53,7 @@ export default function App(): ReactNode {
     const [loadingCount, setLoadingCount] = useState<number>(1);
 
     const setLoading = useCallback((loading?: boolean) => {
-        setLoadingCount(v => v + (loading ? 1 : -1));
+        setLoadingCount(v => Math.max(v + (loading ? 1 : -1), 0));
     }, []);
 
     const useLoading = useCallback((promiseOrFunc: (() => Promise<any>) | (Promise<any>)) => {
@@ -120,6 +120,10 @@ export default function App(): ReactNode {
             setLoadingCount(v => v - 1);
         }
     }, [userData, addError]);
+
+    useEffect(() => {
+        if (loadingCount < 0) setLoadingCount(v => v + 1);
+    }, [loadingCount]);
 
     return <ContextWrapper contexts={[
         { context: loadingContext, value: { setLoading, useLoading } },

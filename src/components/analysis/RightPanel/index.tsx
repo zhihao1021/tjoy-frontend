@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import './RightPanel.scss';
 
-const RightPanel = ({ timePeriod, setTimePeriod }) => {
+const RightPanel = ({
+  timePeriod, setTimePeriod
+}: {
+  timePeriod: string,
+  setTimePeriod: Dispatch<SetStateAction<string>>
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   const timeOptions = ['前一個月', '前三個月'];
 
   // CSV 數據
@@ -41,17 +46,17 @@ const RightPanel = ({ timePeriod, setTimePeriod }) => {
 
   const eventData = getFilteredData();
 
-  const handleTimePeriodChange = (period) => {
+  const handleTimePeriodChange = (period: string) => {
     setTimePeriod(period);
     setIsDropdownOpen(false);
   };
 
-  const getCircleProgress = (percentage) => {
+  const getCircleProgress = (percentage: number) => {
     const radius = 45;
     const circumference = 2 * Math.PI * radius;
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
-    
+
     return {
       radius,
       circumference,
@@ -65,24 +70,24 @@ const RightPanel = ({ timePeriod, setTimePeriod }) => {
       <div className="panel-header">
         <h2 className="panel-title">事件關鍵詞比例</h2>
         <div className="time-dropdown">
-          <button 
+          <button
             className="time-dropdown-btn"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             {timePeriod}
-            <svg 
-              width="16" 
-              height="16" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
               strokeWidth="2"
               className={`dropdown-icon ${isDropdownOpen ? 'open' : ''}`}
             >
-              <polyline points="6,9 12,15 18,9"/>
+              <polyline points="6,9 12,15 18,9" />
             </svg>
           </button>
-          
+
           {isDropdownOpen && (
             <div className="dropdown-menu">
               {timeOptions.map((option) => (
@@ -102,13 +107,13 @@ const RightPanel = ({ timePeriod, setTimePeriod }) => {
       <div className="event-list">
         {eventData.map((event) => {
           const progress = getCircleProgress(event.proportion);
-          
+
           return (
             <div key={`${event.month}-${event.rank}`} className="event-card">
               <div className="event-header">
                 <span className="event-rank">排名{event.rank}</span>
               </div>
-              
+
               <div className="event-content">
                 <div className="event-info">
                   <h3 className="event-title">{event.title}</h3>
@@ -117,7 +122,7 @@ const RightPanel = ({ timePeriod, setTimePeriod }) => {
                     <span className="keywords-text">{event.keywords}</span>
                   </div>
                 </div>
-                
+
                 <div className="event-chart">
                   <div className="circular-progress">
                     <svg width="100" height="100" className="progress-svg">

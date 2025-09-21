@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 
-import LeftPanel from '@/components/analysis/LeftPanel';
+
+import LeftPanel from "@/components/analysis/LeftPanel";
 import CenterPanel from '@/components/analysis/CenterPanel';
 import RightPanel from '@/components/analysis/RightPanel';
 

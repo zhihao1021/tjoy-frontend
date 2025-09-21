@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import './LeftPanel.scss';
 
 const LeftPanel = () => {
@@ -31,4 +31,4 @@ const LeftPanel = () => {
   );
 };
 
-export default LeftPanel;
+export default LeftPanel as () => ReactNode;
